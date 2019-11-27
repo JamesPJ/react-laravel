@@ -18,8 +18,11 @@
     },
     "laravel": {
         "providers": [
-            "Talysson\\React\\ReactServiceProvider"
-        ]
+            "React\\ReactServiceProvider"
+        ],
+        "aliases": {
+            "React": "React\\Facade"
+        }
     }
   },
   "authors": [
@@ -29,11 +32,8 @@
     }
   ],
   "autoload": {
-    "classmap": [
-      "facades/"
-    ],
     "psr-4": {
-      "Talysson\\React\\": "src/"
+      "React\\": "src/"
     }
   },
   "minimum-stability": "dev"
