@@ -1,11 +1,6 @@
 <?php 
 namespace React;
 
-  // Fix PHPUnit issue with relative path for `autoload.php`
-  if(!defined('ENVIRONMENT') || ENVIRONMENT != 'test') {
-    require_once '../vendor/autoload.php';
-  }
-
   class LaravelReact {
     private $react = null;
     private $defaultOptions;
