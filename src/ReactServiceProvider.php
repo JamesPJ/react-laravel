@@ -1,5 +1,5 @@
 <?php 
-namespace React;
+namespace Talysson\React;
 
 use Blade;
 use Illuminate\Support\ServiceProvider;

@@ -1,5 +1,5 @@
 <?php 
-namespace React;
+namespace Talysson\React;
 
   // Fix PHPUnit issue with relative path for `autoload.php`
   if(!defined('ENVIRONMENT') || ENVIRONMENT != 'test') {
