@@ -6,7 +6,7 @@ namespace React;
     require_once '../vendor/autoload.php';
   }
 
-  class React {
+  class LaravelReact {
     private $react = null;
     private $defaultOptions;
     private $reactSource;

@@ -21,7 +21,7 @@
             "React\\ReactServiceProvider"
         ],
         "aliases": {
-            "React": "React\\Facade"
+            "LaravelReact": "React\\Facade"
         }
     }
   },

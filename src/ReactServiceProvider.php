@@ -47,7 +47,7 @@ class ReactServiceProvider extends ServiceProvider {
       $reactSource = $reactBaseSource;
       $reactSource .= $reactDomSource;
       $reactSource .= $reactDomServerSource;
-      return new React($reactSource, $componentsSource);
+      return new LaravelReact($reactSource, $componentsSource);
     });
   }
 
