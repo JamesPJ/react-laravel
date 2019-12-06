@@ -17,7 +17,7 @@ class ReactServiceProvider extends ServiceProvider {
     $prev = __DIR__ . '/../';
 
     $this->publishes([
-      $prev . 'assets'            => public_path('vendor/react-laravel'),
+      $prev . 'assets'            => resource_path('assets/backend/vendor/react-laravel'),
     ], 'assets');
 
     $this->publishes([
