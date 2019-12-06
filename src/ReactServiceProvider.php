@@ -1,24 +1,23 @@
 <?php namespace React;
 
-use Blade;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class ReactServiceProvider extends ServiceProvider {
 
   public function boot() {
 
-    Blade::extend(function($view) {
+    Blade::directive('react_component', function($view) {
       $pattern = $this->createMatcher('react_component');
-
-      return preg_replace($pattern, '<?php echo React::render$2; ?>', $view);
+      list($component, $props, $options) = $this->cleanExpression($view);
+      $out = app('LaravelReact')->render($component, $props, $options);
+      return preg_replace($pattern, "<?php echo $out ?>", $view);
     });
 
     $prev = __DIR__ . '/../';
 
     $this->publishes([
       $prev . 'assets'            => public_path('vendor/react-laravel'),
-      $prev . 'node_modules/react/dist' => public_path('vendor/react-laravel'),
-      $prev . 'node_modules/react-dom/dist' => public_path('vendor/react-laravel'),
     ], 'assets');
 
     $this->publishes([
@@ -28,12 +27,10 @@ class ReactServiceProvider extends ServiceProvider {
 
   public function register() {
 
-    $this->app->bind('React', function() {
+    $this->app->bind('LaravelReact', function() {
       $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'react');
 
-      $reactBaseSource = file_get_contents(config('react.source'));
-      $reactDomSource = file_get_contents(config('react.dom-source'));
-      $reactDomServerSource = file_get_contents(config('react.dom-server-source'));
+      $reactSource = file_get_contents(config('react.source'));
 
       $componentsSource = null;
       $components = config('react.components');
@@ -44,11 +41,28 @@ class ReactServiceProvider extends ServiceProvider {
         $componentsSource .= file_get_contents($component);
       }
 
-      $reactSource = $reactBaseSource;
-      $reactSource .= $reactDomSource;
-      $reactSource .= $reactDomServerSource;
       return new LaravelReact($reactSource, $componentsSource);
     });
+  }
+
+  protected function cleanExpression($view) {
+    list($component, $props, $options) = preg_split('/[,]+(?![^\[]*\])/', $view);
+    $props = $this->cleanArray($props);
+    $options = $this->cleanArray($options);
+
+    return [$component, $props, $options];
+  }
+
+  protected function cleanArray($input) {
+    $rows = preg_split('/[,]+(?![^\[]*\])/', preg_replace('/(\[|\])+/', '', $input));
+    $array = [];
+    foreach($rows as $row){
+        $kv = explode("=>",$row);
+        if(!empty($kv) && count($kv) > 1) {
+          $array[$kv[0]] = $kv[1];
+        }
+    }
+    return $array;
   }
 
   protected function createMatcher($function) {

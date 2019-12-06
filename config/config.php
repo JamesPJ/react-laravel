@@ -7,33 +7,11 @@ return [
   | React Source
   |--------------------------------------------------------------------------
   |
-  | Path to the react.js file.
+  | Path to the react.js and react-dom bundle file.
   |
   */
 
-  'source'     => public_path('vendor/react-laravel/react.js'),
-
-  /*
-  |--------------------------------------------------------------------------
-  | React-Dom Source
-  |--------------------------------------------------------------------------
-  |
-  | Path to the react-dom.js file.
-  |
-  */
-
-  'dom-source' => public_path('vendor/react-laravel/react-dom.js'),
-
-  /*
-  |--------------------------------------------------------------------------
-  | React-Dom-Server Source
-  |--------------------------------------------------------------------------
-  |
-  | Path to the react-dom-server.js file.
-  |
-  */
-
-  'dom-server-source' => public_path('vendor/react-laravel/react-dom-server.js'),
+  'source'     => public_path('vendor/react-laravel/react-bundle.js'),
 
   /*
   |--------------------------------------------------------------------------
