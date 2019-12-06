@@ -3,6 +3,12 @@
   "description": "Package to use ReactJS with Laravel",
   "license": "MIT",
   "keywords": ["react", "reactjs", "laravel"],
+  "repositories": [
+      {
+          "url": "https://github.com/JamesPJ/react-php-v8js.git",
+          "type": "git"
+      }
+  ],
   "require": {
     "illuminate/support": "6.*",
     "reactjs/react-php-v8js": "dev-master",
